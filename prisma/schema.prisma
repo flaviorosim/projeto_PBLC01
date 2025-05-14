@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String    
+  email       String    @unique
+  password    String    @unique
+  birthDate   DateTime
+  profile     Profile?
+  ratingsGiven     Rating[]   @relation("GivenRatings")
+  ratingsReceived  Rating[]   @relation("ReceivedRatings")
+  messagesSent     Message[]  @relation("MessagesSent")
+  messagesReceived Message[]  @relation("MessagesReceived")
+}
+
+model Profile {
+  id          Int     @id @default(autoincrement())
+  biography   String
+  userRating  Float
+  suggestions String
+  userId      Int     @unique
+  user        User    @relation(fields: [userId], references: [id])
+}
+
+model Rating {
+  id         Int    @id @default(autoincrement())
+  grade      Int
+  comment    String
+  evaluatorId Int
+  evaluatedId Int
+  evaluator  User   @relation("GivenRatings", fields: [evaluatorId], references: [id])
+  evaluated  User   @relation("ReceivedRatings", fields: [evaluatedId], references: [id])
+}
+
+model Host {
+  id        Int     @id @default(autoincrement())
+  address   Address?
+  calendar Calendar?
+  houseRules String
+  accommodation Accommodation?
+  reservation  Reservation?
+}
+
+model ExchangeStudent {
+  id                Int    @id @default(autoincrement())
+  nationality       String
+  speakingLanguages String
+  reservation      Reservation?
+}
+
+model Accommodation {
+  id        Int     @id @default(autoincrement())
+  description String
+  capacity   Int
+  hostId     Int @unique
+  host       Host    @relation(fields: [hostId], references: [id])
+  address    Address?
+}
+
+model Address {
+  id           Int     @id @default(autoincrement())
+  zipCode      String
+  country      String
+  city         String
+  street       String
+  number       Int
+  hostId       Int    @unique
+  accommodationId Int @unique
+  host          Host @relation(fields: [hostId], references: [id])
+  accommodation Accommodation? @relation(fields: [accommodationId], references: [id])
+}
+
+model Calendar {
+  id            Int       @id @default(autoincrement())
+  availability  DateTime[]
+  hostId        Int       @unique
+  host          Host      @relation(fields: [hostId], references: [id])
+  reservations  Reservation[]
+}
+
+model Reservation {
+  id                Int       @id @default(autoincrement())
+  beginDate         DateTime
+  endDate           DateTime
+  status            String
+  hostId            Int   @unique
+  exchangeStudentId Int   @unique
+  calendarId        Int   @unique
+  host              Host             @relation(fields: [hostId], references: [id])
+  exchangeStudent   ExchangeStudent  @relation(fields: [exchangeStudentId], references: [id])
+  calendar          Calendar         @relation(fields: [calendarId], references: [id])
+}
+
+model Message {
+  id         Int     @id @default(autoincrement())
+  body       String
+  issueDate  DateTime
+  senderId   Int
+  receiverId Int
+  sender     User    @relation("MessagesSent", fields: [senderId], references: [id])
+  receiver   User    @relation("MessagesReceived", fields: [receiverId], references: [id])
+}
+

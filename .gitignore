@@ -1,0 +1,4 @@
+generated
+nodes_modules
+volumes
+.env

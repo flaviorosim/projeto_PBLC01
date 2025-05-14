@@ -13,26 +13,32 @@ class User{
       this.profile = profile;
     }
   
-    public login(email: string, password: string): boolean {}
+    public login(email: string, password: string): boolean | undefined{
+      // A DEFINIR FUNÇÃO AINDA, DEPOIS TIRA UNDEFINED
+      return undefined;
+    }
   
-    public signIn(email: string, password: string): boolean {}
+    public signIn(email: string, password: string): boolean | undefined {
+      // A DEFINIR FUNÇÃO AINDA, DEPOIS TIRA UNDEFINED
+      return undefined;
+    }
   
-    public editProfile(profile: Profile): void {}
+    public editProfile(profile: Profile): void {} // Arrumar depois pra ser um change password(no .dia tb)
   
 }
 
 class Host extends User {
     private address: Address;
-    private availability: Calendar;
+    private calendar: Calendar;
     private houseRules: string;
   
     constructor(
       name: string, email: string, password: string, birthDate: Date, profile: Profile,
-      address: Address, availability: Calendar, houseRules: string
+      address: Address, calendar: Calendar, houseRules: string
     ) {
       super(name, email, password, birthDate, profile);
       this.address = address;
-      this.availability = availability;
+      this.calendar = calendar;
       this.houseRules = houseRules;
     }
 }
@@ -170,6 +176,9 @@ class Calendar {
       this.availability = availability;
     }
   
-    public isAvailable(beginDate: Date, endDate: Date): boolean {}
+    public isAvailable(beginDate: Date, endDate: Date): boolean | undefined{
+      // A DEFINIR FUNÇÃO AINDA, DEPOIS TIRA UNDEFINED
+      return undefined;
+    }
 }
   
