@@ -25,6 +25,7 @@ model User {
   ratingsReceived  Rating[]   @relation("ReceivedRatings")
   messagesSent     Message[]  @relation("MessagesSent")
   messagesReceived Message[]  @relation("MessagesReceived")
+  senha String
 }
 
 model Profile {
@@ -52,7 +53,6 @@ model Host {
   calendar Calendar?
   houseRules String
   accommodation Accommodation?
-  reservation  Reservation?
 }
 
 model ExchangeStudent {
@@ -97,10 +97,8 @@ model Reservation {
   beginDate         DateTime
   endDate           DateTime
   status            String
-  hostId            Int   @unique
   exchangeStudentId Int   @unique
   calendarId        Int   @unique
-  host              Host             @relation(fields: [hostId], references: [id])
   exchangeStudent   ExchangeStudent  @relation(fields: [exchangeStudentId], references: [id])
   calendar          Calendar         @relation(fields: [calendarId], references: [id])
 }
@@ -114,4 +112,3 @@ model Message {
   sender     User    @relation("MessagesSent", fields: [senderId], references: [id])
   receiver   User    @relation("MessagesReceived", fields: [receiverId], references: [id])
 }
-
