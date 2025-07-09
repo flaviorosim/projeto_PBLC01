@@ -12,7 +12,7 @@ const prisma = new PrismaClient();
     data: {
       name: "flavio",
       email: "flavio@yahoo.com",
-      password: "123",
+      password: senhaHash,
       birthDate: new Date("2002-05-10"),
       senha: senhaHash
     }
