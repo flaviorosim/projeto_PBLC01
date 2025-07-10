@@ -21,6 +21,7 @@ model User {
   password    String    @unique
   birthDate   DateTime
   profile     Profile?
+  host       Host?    
   ratingsGiven     Rating[]   @relation("GivenRatings")
   ratingsReceived  Rating[]   @relation("ReceivedRatings")
   messagesSent     Message[]  @relation("MessagesSent")
@@ -53,13 +54,15 @@ model Host {
   calendar Calendar?
   houseRules String
   accommodation Accommodation?
+  userId          Int       @unique
+  user            User      @relation(fields: [userId], references: [id])
 }
 
 model ExchangeStudent {
   id                Int    @id @default(autoincrement())
   nationality       String
   speakingLanguages String
-  reservation      Reservation?
+  reservation      Reservation[]
 }
 
 model Accommodation {
@@ -97,8 +100,8 @@ model Reservation {
   beginDate         DateTime
   endDate           DateTime
   status            String
-  exchangeStudentId Int   @unique
-  calendarId        Int   @unique
+  exchangeStudentId Int   
+  calendarId        Int   
   exchangeStudent   ExchangeStudent  @relation(fields: [exchangeStudentId], references: [id])
   calendar          Calendar         @relation(fields: [calendarId], references: [id])
 }

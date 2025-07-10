@@ -36,6 +36,7 @@ CREATE TABLE "Rating" (
 CREATE TABLE "Host" (
     "id" SERIAL NOT NULL,
     "houseRules" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Host_pkey" PRIMARY KEY ("id")
 );
@@ -115,6 +116,9 @@ CREATE UNIQUE INDEX "User_password_key" ON "User"("password");
 CREATE UNIQUE INDEX "Profile_userId_key" ON "Profile"("userId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Host_userId_key" ON "Host"("userId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Accommodation_hostId_key" ON "Accommodation"("hostId");
 
 -- CreateIndex
@@ -126,12 +130,6 @@ CREATE UNIQUE INDEX "Address_accommodationId_key" ON "Address"("accommodationId"
 -- CreateIndex
 CREATE UNIQUE INDEX "Calendar_hostId_key" ON "Calendar"("hostId");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Reservation_exchangeStudentId_key" ON "Reservation"("exchangeStudentId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Reservation_calendarId_key" ON "Reservation"("calendarId");
-
 -- AddForeignKey
 ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -140,6 +138,9 @@ ALTER TABLE "Rating" ADD CONSTRAINT "Rating_evaluatorId_fkey" FOREIGN KEY ("eval
 
 -- AddForeignKey
 ALTER TABLE "Rating" ADD CONSTRAINT "Rating_evaluatedId_fkey" FOREIGN KEY ("evaluatedId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Host" ADD CONSTRAINT "Host_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Accommodation" ADD CONSTRAINT "Accommodation_hostId_fkey" FOREIGN KEY ("hostId") REFERENCES "Host"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -164,5 +165,3 @@ ALTER TABLE "Message" ADD CONSTRAINT "Message_senderId_fkey" FOREIGN KEY ("sende
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD CONSTRAINT "Message_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
-

@@ -30,7 +30,7 @@
 
 /**
  * @openapi
- * /auth:
+ * /auth/login:
  *   post:
  *     tags:
  *       - Autenticação

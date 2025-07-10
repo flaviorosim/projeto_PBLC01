@@ -7,7 +7,8 @@ const prisma = new PrismaClient();
 
   async function main() {
   const senhaHash = await argon2.hash('senha123');
-  
+  const senhaHash2 = await argon2.hash('senha456');
+
   const user1 = await prisma.user.create({
     data: {
       name: "flavio",
@@ -22,9 +23,9 @@ const prisma = new PrismaClient();
     data: {
       name: "joana",
       email: "joana@seila.com",
-      password: "456",
+      password: senhaHash2,
       birthDate: new Date("1998-11-20"),
-      senha: senhaHash
+      senha: senhaHash2
     }
   });
 
@@ -54,11 +55,16 @@ const prisma = new PrismaClient();
       ],
     });
 
-  const host1 = await prisma.host.create({
-    data: {
-      houseRules: "Tem que lavar louça",
-    }
-  });
+    const host1 = await prisma.host.create({
+        data: {
+            houseRules: "Tem que lavar louça",
+            user: { 
+                connect: {
+                    id: user2.id 
+                }
+            }
+        }
+    });
 
 
   const calendar = await prisma.calendar.create({
