@@ -8,6 +8,8 @@ const prisma = new PrismaClient();
   async function main() {
   const senhaHash = await argon2.hash('senha123');
   const senhaHash2 = await argon2.hash('senha456');
+  const senhaHash3 = await argon2.hash('senha789');
+
 
   const user1 = await prisma.user.create({
     data: {
@@ -28,6 +30,16 @@ const prisma = new PrismaClient();
       senha: senhaHash2
     }
   });
+
+  const user3 = await prisma.user.create({
+    data: {
+            name: "Carlos",
+            email: "carlos@seila.com",
+            birthDate: new Date("2001-01-15"),
+            senha: senhaHash3,
+            password: senhaHash3
+        }
+    });
 
   await prisma.profile.create({
     data: {
@@ -66,6 +78,16 @@ const prisma = new PrismaClient();
         }
     });
 
+    const host2 = await prisma.host.create({
+        data: {
+            houseRules: "Não fazer barulho após as 22h",
+            user: { 
+              connect: { 
+                id: user3.id 
+              } 
+            }
+        }
+    });    
 
   const calendar = await prisma.calendar.create({
       data: {

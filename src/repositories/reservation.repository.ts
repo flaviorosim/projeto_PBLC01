@@ -50,13 +50,12 @@ export const updateReservation = async (id: number, data: Partial<Omit<Reservati
   
   const dataToUpdate = { ...data };
 
-    // Verificamos se uma nova data de início foi enviada na requisição.
-    // Se sim, convertemos para o tipo Date.
+    
     if (data.beginDate) {
         dataToUpdate.beginDate = new Date(`${data.beginDate as unknown as string}T00:00:00`);
     }
 
-    // Fazemos o mesmo para a data final.
+    
     if (data.endDate) {
         dataToUpdate.endDate = new Date(`${data.endDate as unknown as string}T00:00:00`);
     }

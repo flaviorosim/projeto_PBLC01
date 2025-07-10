@@ -10,13 +10,13 @@ export const loginController = async (req: Request, res: Response) : Promise<voi
 
     const user = await authRepository.findByEmail(email);
     if (!user) {
-      res.status(401).json({ message: 'usuário inválido' });
+      res.status(401).json({ message: 'Invalid user' });
       return;
     }
 
     const isPasswordValid = await argon2.verify(user.senha, senha);
     if (!isPasswordValid) {
-      res.status(401).json({ message: 'senha inválida' });
+      res.status(401).json({ message: 'Invalid password' });
       return;
     }
 
@@ -31,7 +31,7 @@ export const loginController = async (req: Request, res: Response) : Promise<voi
         { expiresIn: '1h' }
     );
 
-    res.json({ message: 'Login realizado com sucesso', token });
+    res.json({ message: 'Login successful', token });
 };
 
   
