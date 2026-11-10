@@ -1,10 +1,13 @@
 # NestExchange
 
-NestExchange is a backend API for a student-exchange accommodation platform. It is designed to connect exchange students with hosts, manage accommodation availability, and handle reservation workflows.
+NestExchange is a a web application for a student-exchange accommodation platform. It is designed to connect exchange students with hosts, manage accommodation availability, and handle reservation workflows.
 
 The project was developed as an academic software engineering project and focuses on REST API development, relational data modelling, authentication, and database integration.
 
-> **Repository scope:** this repository contains the backend API. The frontend part was separated in another repository.
+> **Repository scope:** this repository contains the backend API.
+> 
+- **Frontend repository:** [PBLC01-Front](https://github.com/flaviorosim/PBLC01-Front)
+- **Backend repository:** [projeto_PBLC01](https://github.com/flaviorosim/projeto_PBLC01)
 
 ## Features
 
@@ -220,7 +223,16 @@ The Prisma schema represents the main entities of the platform:
 - **Rating:** evaluations and comments between users.
 - **Message:** messages exchanged between users.
 
+## Related Repository
+
+The backend implementation is maintained separately:
+
+[**NestExchange Backend — PBLC01-Front**](https://github.com/flaviorosim/PBLC01-Front)
+
+---
 
 ## License
 
 This project is distributed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+
+*Academic project developed as part of the PBLC01 course.*
